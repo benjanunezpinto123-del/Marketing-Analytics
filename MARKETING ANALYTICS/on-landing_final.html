@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ON — Línea de productos</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<style>
+  :root{
+    --negro:#0B0B0F;
+    --superficie:#F4F4F7;
+    --morado:#7A2BF5;
+    --morado-claro:#5B13CC;
+    --blanco:#FFFFFF;
+    --gris:#5A5A6B;
+    --borde:rgba(11,11,15,.14);
+    --radio:14px;
+    --max:1200px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    background:var(--blanco);
+    color:var(--negro);
+    font-family:"Helvetica Neue",Arial,sans-serif;
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:var(--max);margin:0 auto;padding:0 24px}
+  img{max-width:100%;display:block}
+
+  /* marco para imágenes que aún no cargas */
+  .ph{
+    width:100%;background:linear-gradient(135deg,var(--superficie),#E7DFFA);
+    border:1px dashed var(--borde);border-radius:var(--radio);
+    display:flex;align-items:center;justify-content:center;
+    color:var(--gris);font-size:13px;letter-spacing:.08em;text-transform:uppercase;
+  }
+
+  /* ---------- HEADER ---------- */
+  header{
+    position:sticky;top:0;z-index:50;
+    background:rgba(255,255,255,.9);backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--borde);
+  }
+  .nav{display:flex;align-items:center;gap:20px;height:72px}
+  .logo{
+    font-weight:800;font-size:26px;letter-spacing:.22em;
+    border:2px solid var(--negro);border-radius:8px;padding:2px 12px;
+  }
+  .cats{display:flex;gap:26px;flex:1;list-style:none}
+  .cats a{color:var(--gris);text-decoration:none;font-size:14px;letter-spacing:.1em;text-transform:uppercase}
+  .cats a:hover{color:var(--morado-claro)}
+  .perfil{
+    border:1px solid var(--borde);border-radius:999px;padding:8px 18px;
+    font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--negro);
+    text-decoration:none;
+  }
+  .icono{
+    width:40px;height:40px;border:1px solid var(--borde);border-radius:10px;
+    display:grid;place-items:center;cursor:pointer;
+  }
+  .icono span{display:block;width:16px;height:2px;background:var(--negro);box-shadow:0 5px 0 var(--negro),0 -5px 0 var(--negro)}
+  .carro{
+    width:40px;height:40px;border:2px solid var(--negro);border-radius:50%;
+    display:grid;place-items:center;font-size:13px;font-weight:700;
+  }
+
+  /* ---------- HERO ---------- */
+  .hero{display:grid;grid-template-columns:1.15fr .85fr;gap:28px;padding:56px 0 40px}
+  .hero-txt{
+    background:linear-gradient(135deg,var(--morado) 0%,#4A17A8 100%);
+    border-radius:var(--radio);padding:56px 44px;display:flex;flex-direction:column;justify-content:center;
+    color:var(--blanco);
+  }
+  .kicker{font-size:12px;letter-spacing:.3em;text-transform:uppercase;color:rgba(255,255,255,.75);margin-bottom:14px}
+  .hero-txt h1{font-size:clamp(34px,4.4vw,56px);line-height:1.05;font-weight:800;letter-spacing:-.02em}
+  .hero-txt p{margin-top:16px;color:rgba(255,255,255,.88);max-width:46ch}
+  .btn{
+    margin-top:28px;align-self:flex-start;background:var(--blanco);color:var(--negro);
+    border:none;border-radius:999px;padding:14px 30px;font-weight:700;font-size:14px;
+    letter-spacing:.08em;text-transform:uppercase;cursor:pointer;
+  }
+  .btn:hover{background:var(--negro);color:var(--blanco)}
+  .hero-img .ph{height:100%;min-height:360px}
+  .hero-img img{
+    height:100%;min-height:360px;width:100%;object-fit:cover;border-radius:var(--radio);
+    background:linear-gradient(135deg,var(--superficie),#E7DFFA);
+  }
+
+  /* ---------- QUÉ TRAE ---------- */
+  .trae{display:grid;grid-template-columns:1.15fr .85fr;gap:28px;padding:24px 0 56px}
+  .trae-box{border:1px solid var(--borde);border-radius:var(--radio);padding:40px 44px;background:var(--superficie)}
+  .trae-box h2{font-size:32px;font-weight:800;margin-bottom:22px}
+  .trae-box ul{list-style:none;display:grid;gap:14px}
+  .trae-box li{display:flex;gap:14px;align-items:flex-start;color:var(--gris)}
+  .trae-box li::before{content:"";width:22px;height:2px;background:var(--morado-claro);margin-top:12px;flex:none}
+  .grid-cards{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  .card{
+    border:1px solid var(--borde);border-radius:var(--radio);padding:14px;background:var(--blanco);
+    display:flex;flex-direction:column;gap:10px;transition:border-color .2s,transform .2s;
+  }
+  .card:hover{border-color:var(--morado);transform:translateY(-3px);box-shadow:0 10px 24px rgba(122,43,245,.12)}
+  .card .ph{height:120px}
+  .card h3{font-size:15px;letter-spacing:.06em;text-transform:uppercase}
+  .card span{font-size:14px;color:var(--morado-claro);font-weight:700}
+
+  /* ---------- BENEFICIOS ---------- */
+  .benef{display:grid;grid-template-columns:1.1fr .9fr;gap:36px;padding:56px 0;border-top:1px solid var(--borde)}
+  .benef h2{font-size:clamp(30px,3.6vw,44px);font-weight:800;margin-bottom:18px}
+  .benef .destacado{
+    border-left:3px solid var(--morado);padding-left:20px;color:var(--gris);margin-bottom:26px;
+  }
+  .benef-lista{display:grid;gap:22px}
+  .benef-item h4{font-size:16px;letter-spacing:.06em;text-transform:uppercase;margin-bottom:6px}
+  .benef-item p{color:var(--gris);font-size:15px}
+  .embajador{
+    background:linear-gradient(160deg,#F1EAFE,var(--superficie));
+    border:1px solid var(--borde);border-radius:var(--radio);padding:26px;
+  }
+  .embajador .kicker{color:var(--morado-claro)}
+  .persona{display:flex;gap:18px;align-items:center;padding:18px 0;border-bottom:1px solid var(--borde)}
+  .persona:last-child{border-bottom:none;padding-bottom:0}
+  .persona img{
+    width:110px;height:140px;object-fit:cover;object-position:top center;
+    border-radius:10px;flex:none;background:var(--superficie);
+  }
+  .embajador h3{font-size:21px;font-weight:800;line-height:1.2}
+  .rol{
+    display:inline-block;margin:6px 0 8px;font-size:11px;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--blanco);background:var(--morado);border-radius:999px;padding:4px 12px;
+  }
+  .embajador p{color:var(--gris);font-size:14px}
+
+  /* ---------- FOOTER ---------- */
+  footer{border-top:1px solid var(--borde);padding:40px 0 48px}
+  .foot{display:flex;justify-content:space-between;gap:30px;flex-wrap:wrap}
+  .foot h5{font-size:13px;letter-spacing:.2em;text-transform:uppercase;margin-bottom:14px}
+  .foot p,.foot li{color:var(--gris);font-size:14px;list-style:none}
+  .redes{display:flex;gap:14px;flex-wrap:wrap}
+  .redes a{
+    width:46px;height:46px;border:1px solid var(--borde);border-radius:50%;
+    display:grid;place-items:center;font-size:19px;color:var(--negro);
+    text-decoration:none;transition:background .2s,color .2s,border-color .2s;
+  }
+  .redes a:hover{background:var(--morado);border-color:var(--morado);color:var(--blanco)}
+  .nota{margin-top:30px;font-size:12px;color:#8A8A99;text-align:center}
+
+  @media(max-width:860px){
+    .hero,.trae,.benef{grid-template-columns:1fr}
+    .cats{display:none}
+    .hero-txt{padding:40px 26px}
+    .trae-box{padding:30px 24px}
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ HEADER ============ -->
+<header>
+  <div class="wrap nav">
+    <div class="logo">ON</div>
+    <ul class="cats">
+      <li><a href="#">Running</a></li>
+      <li><a href="#">Training</a></li>
+      <li><a href="#">Lifestyle</a></li>
+      <li><a href="#">Accesorios</a></li>
+    </ul>
+    <a class="perfil" href="#">Perfil</a>
+    <div class="icono"><span></span></div>
+    <div class="carro">0</div>
+  </div>
+</header>
+
+<!-- ============ HERO ============ -->
+<section class="wrap hero">
+  <div class="hero-txt">
+    <div class="kicker">Nueva temporada</div>
+    <h1>Conoce nuestra<br>línea de productos</h1>
+    <p>Zapatillas, indumentaria y accesorios diseñados para rendir desde el primer kilómetro.</p>
+    <button class="btn">Ver colección</button>
+  </div>
+  <div class="hero-img">
+    <!-- Guarda la foto como mbappe.jpg en la misma carpeta que este archivo -->
+    <img src="mbappe.jpg" alt="Kylian Mbappé presentando la nueva zapatilla ON">
+  </div>
+</section>
+
+<!-- ============ ¿QUÉ TRAE? ============ -->
+<section class="wrap trae">
+  <div class="trae-box">
+    <h2>¿Qué trae?</h2>
+    <ul>
+      <li>Zapatillas de running con amortiguación de nueva generación.</li>
+      <li>Poleras técnicas de secado rápido y tejido transpirable.</li>
+      <li>Gorros y accesorios para entrenamiento en exterior.</li>
+      <li>Línea cápsula desarrollada junto al embajador de la marca.</li>
+    </ul>
+  </div>
+
+  <div class="grid-cards">
+    <article class="card">
+      <!-- <img src="gorro.jpg" alt="Gorro"> -->
+      <div class="ph">Foto</div>
+      <h3>Gorro</h3><span>$24.990</span>
+    </article>
+    <article class="card">
+      <div class="ph">Foto</div>
+      <h3>Zapatillas</h3><span>$119.990</span>
+    </article>
+    <article class="card">
+      <div class="ph">Foto</div>
+      <h3>Polera</h3><span>$39.990</span>
+    </article>
+    <article class="card">
+      <div class="ph">Foto</div>
+      <h3>Etc.</h3><span>Ver más</span>
+    </article>
+  </div>
+</section>
+
+<!-- ============ BENEFICIOS ============ -->
+<section class="wrap benef">
+  <div>
+    <h2>Beneficios</h2>
+    <p class="destacado">Comprar en ON es más que llevarse un producto: es entrar a un programa pensado para quienes entrenan en serio.</p>
+    <div class="benef-lista">
+      <div class="benef-item">
+        <h4>Despacho gratis</h4>
+        <p>En compras sobre $50.000 a todo Chile, con seguimiento en línea.</p>
+      </div>
+      <div class="benef-item">
+        <h4>30 días de prueba</h4>
+        <p>Corre con tus zapatillas y, si no te convencen, las cambias sin costo.</p>
+      </div>
+      <div class="benef-item">
+        <h4>Programa de puntos</h4>
+        <p>Acumula en cada compra y canjea por descuentos y ediciones limitadas.</p>
+      </div>
+      <div class="benef-item">
+        <h4>Acceso anticipado</h4>
+        <p>Los socios compran primero los lanzamientos de la línea del embajador.</p>
+      </div>
+    </div>
+  </div>
+
+  <aside class="embajador">
+    <div class="kicker">Las caras de ON</div>
+
+    <div class="persona">
+      <img src="mbappe.jpg" alt="Kylian Mbappé, embajador de ON">
+      <div>
+        <h3>Kylian Mbappé</h3>
+        <span class="rol">Embajador principal</span>
+        <p>Protagonista de la campaña de temporada y co-creador de la línea cápsula.</p>
+      </div>
+    </div>
+
+    <div class="persona">
+      <img src="henry.jpg" alt="Thierry Henry, director de la marca">
+      <div>
+        <h3>Thierry Henry</h3>
+        <span class="rol">Embajador</span>
+        <p>Embajador de la marca y parte del desarrollo de la línea de entrenamiento.</p>
+      </div>
+    </div>
+  </aside>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="wrap foot">
+    <div>
+      <h5>Contactos</h5>
+      <ul>
+        <li>contacto@on-demo.cl</li>
+        <li>+56 2 2345 6789</li>
+        <li>Av. Presidente Errázuriz 3485, Las Condes</li>
+      </ul>
+    </div>
+    <div>
+      <h5>Síguenos</h5>
+      <div class="redes">
+        <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+        <a href="#" aria-label="X"><i class="fa-brands fa-x-twitter"></i></a>
+        <a href="#" aria-label="TikTok"><i class="fa-brands fa-tiktok"></i></a>
+        <a href="#" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+      </div>
+    </div>
+  </div>
+  <p class="nota">Maqueta académica con fines educativos — no es un sitio oficial.</p>
+</footer>
+
+</body>
+</html>
